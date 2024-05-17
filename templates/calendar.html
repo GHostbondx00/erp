@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+</head>
+<body>
+    <h1>Attendance Calendar</h1>
+    <form action="/update" method="post">
+        <label>Date: <input type="date" name="date" required></label>
+        <label>Class 1: <input type="checkbox" name="class1" value="1"></label>
+        <label>Class 2: <input type="checkbox" name="class2" value="1"></label>
+        <label>Class 3: <input type="checkbox" name="class3" value="1"></label>
+        <label>Class 4: <input type="checkbox" name="class4" value="1"></label>
+        <label>Class 5: <input type="checkbox" name="class5" value="1"></label>
+        <label>Class 6: <input type="checkbox" name="class6" value="1"></label>
+        <button type="submit">Update</button>
+    </form>
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Class 1</th>
+            <th>Class 2</th>
+            <th>Class 3</th>
+            <th>Class 4</th>
+            <th>Class 5</th>
+            <th>Class 6</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row[1] }}</td>
+            {% for i in range(2, 8) %}
+            <td>{{ '✓' if row[i] == 1 else '✗' }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/">Home</a>
+    <form action="{{ url_for('reset_data') }}" method="GET">
+        <button type="submit">Reset Data</button>
+    </form>
+    
+</body>
+</html>
